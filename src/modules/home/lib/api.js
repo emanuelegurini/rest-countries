@@ -4,7 +4,7 @@
 * Data coming from this function should always be clened.
 */
 export const fetchCountries = async() => {
-    const response = await fetch(`${import.meta.env.VITE_BASE_URL}all?fields=name,capital,flags,population,region"`)
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}all?fields=name,capital,flags,population,region`)
     if (!response.ok) {
         throw new Error(`HTTP Error: ${response.status}`)
     }
