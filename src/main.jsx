@@ -5,12 +5,9 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router";
-import App from './App.jsx'
+import HomePage from './pages/HomePage.jsx'
 import ErrorPage from "./pages/error-pages.jsx";
-import {AboutPage} from "./pages/About.jsx";
-import {ContactPage} from "./pages/Contact.jsx";
-import DefaultLayout from "./components/DefaultLayout.jsx";
-import {ProductPage} from "./pages/Product.jsx";
+import DefaultLayout from "./common/components/DefaultLayout.jsx";
 
 
 const router = createBrowserRouter([
@@ -21,20 +18,8 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                Component: App,
+                Component: HomePage,
             },
-            {
-                path: "/about",
-                Component: AboutPage,
-            },
-            {
-                path: "/contact",
-                Component: ContactPage,
-            },
-            {
-                path: "/products/:id",
-                Component: ProductPage,
-            }
         ]
     },
 ])

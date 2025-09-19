@@ -11,3 +11,6 @@ Your users should be able to:
 
 There are no assets for this challenge, as the country flags will be pulled from the [REST Countries API](https://restcountries.com) and you can use an icon font library for the icons.
 
+## Sources
+- https://github.com/Charca/fullsnack
+

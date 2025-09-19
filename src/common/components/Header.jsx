@@ -9,7 +9,7 @@ const nav = [
 export const Header = () => {
 
     return (
-        <header className="bg-blue-600 text-white p-4 mb-6">
+        <header className="bg-blue-600 text-white p-4">
             <div className="max-w-md mx-auto flex justify-between items-center">
                 <h1 className="text-xl font-bold">Todo list</h1>
                 <div className="flex items-center gap-4">
