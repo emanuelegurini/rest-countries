@@ -1,6 +1,6 @@
 export const CountryCard = ({ country }) => {
 
-    const { flag, name, population, region, capital } = country;
+    const { flag, name = "N/A", population, region = "N/A", capital= "N/A" } = country;
 
     return (
         <div className="country-card bg-white rounded-sm shadow-md overflow-hidden h-full">
@@ -13,7 +13,7 @@ export const CountryCard = ({ country }) => {
             </div>
             <div className="country-card__info px-6 py-8">
                 <h3 className="font-bold text-lg mb-2">{name}</h3>
-                <p className="text-sm text-gray-600 mb-1">Population: {population.toLocaleString()}</p>
+                <p className="text-sm text-gray-600 mb-1">Population: {population ? population.toLocaleString() : "N/A"}</p>
                 <p className="text-sm text-gray-600 mb-1">Region: {region}</p>
                 <p className="text-sm text-gray-600">Capital: {capital}</p>
             </div>
