@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {getCountries} from "./models/countries.js";
+import {CountryCard} from "./components/CountryCard.jsx";
 
 function HomeScreen() {
 
@@ -28,12 +29,17 @@ function HomeScreen() {
     if (loading) return <h1>Loading...</h1>
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            {
-                countries.map((country) => (
-                    <div key={country.id}>{country.name}</div>
-                ))
-            }
+
+        <div className="w-full flex justify-center bg-gray-50 py-8">
+            <div className="max-w-6xl px-4">
+                <div className="flex flex-wrap justify-center gap-6">
+                    {countries.map((country) => (
+                        <div key={country.id} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]">
+                            <CountryCard country={country} />
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     )
 }
