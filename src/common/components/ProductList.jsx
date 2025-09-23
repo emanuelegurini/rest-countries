@@ -9,8 +9,6 @@ const initialState = {
     "images": ["https://placehold.co/600x400"]
 }
 
-
-
 const fetchProducts = async() => {
     const response = await fetch(`https://api.escuelajs.co/api/v1/products`)
     if (!response.ok) {

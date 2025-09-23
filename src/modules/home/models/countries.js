@@ -1,4 +1,4 @@
-import {fetchCountries} from "../lib/api.js";
+import {fetchCountries, fetchRegions} from "../lib/api.js";
 
 /*
 * This functions return a clean version of the country list
@@ -15,3 +15,17 @@ export const getCountries = async () => {
         }
     })
 }
+
+/*
+* This functions return a clean version of the region list
+* Problem with region api is that we have many duplicate data
+*/
+export const getRegions = async () => {
+    const regionsCleaned = new Set();
+    const regions = await fetchRegions()
+    regions.map((region) => {
+        regionsCleaned.add(region.region)
+    })
+    return Array.from(regionsCleaned)
+}
+

@@ -1,28 +1,10 @@
-import {useEffect, useState} from "react";
-import {getCountries} from "./models/countries.js";
 import {CountryCard} from "./components/CountryCard.jsx";
+import {CountryFilters} from "./features/country-filters/CountryFilters.jsx";
+import {useFetch} from "./hooks/use-fetch.js";
 
 function HomeScreen() {
 
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [countries, setCountries] = useState([])
-
-    const loadCoutries = async() => {
-        try {
-            const response = await getCountries()
-            setCountries(response)
-        } catch (e) {
-            setError(e)
-            console.error(e)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    useEffect(() => {
-        loadCoutries()
-    }, [])
+    const {error, loading, countries, filter} = useFetch();
 
     // CONDITIONS
     if (error) return <h1>Something went wrong!</h1>
@@ -32,8 +14,12 @@ function HomeScreen() {
 
         <div className="w-full flex justify-center bg-gray-50 py-8">
             <div className="max-w-6xl px-4">
+                <CountryFilters />
                 <div className="flex flex-wrap justify-center gap-6">
-                    {countries.map((country) => (
+                    {countries
+                        .filter(country => filter.region !== '' ? country.region === filter.region : country)
+                        .filter((country) => ( country.name.toLowerCase().includes(filter.countryName) ))
+                        .map((country) => (
                         <div key={country.id} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]">
                             <CountryCard country={country} />
                         </div>

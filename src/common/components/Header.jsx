@@ -1,5 +1,4 @@
 export const Header = () => {
-
     return (
         <header className="p-4">
             <div className="max-w-6xl px-4 mx-auto flex justify-between items-center">
