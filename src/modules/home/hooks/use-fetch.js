@@ -27,6 +27,10 @@ export const useFetch = () => {
     }
 
     useEffect(() => {
+        if (countries && countries.length > 0 && filter && filter !== null) {
+            setLoading(false)
+            return
+        }
         loadData()
     }, [])
 

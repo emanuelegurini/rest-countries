@@ -8,6 +8,7 @@ import {
 import HomePage from './pages/HomePage.jsx'
 import ErrorPage from "./pages/error-pages.jsx";
 import DefaultLayout from "./common/components/DefaultLayout.jsx";
+import CountryPage from "./pages/CountryPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 Component: HomePage,
+            },
+            {
+                path: "/countries/:country-name",
+                Component: CountryPage,
             },
         ]
     },
