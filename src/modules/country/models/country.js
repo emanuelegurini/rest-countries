@@ -1,34 +1,61 @@
-import {fetchCountry, fetchCountries} from "../lib/api.js";
+import { fetchCountry, fetchCountries } from "../lib/api.js";
 
-/*
-* This functions return a clean version of the country object
-*/
+const extractNativeName = (nativeNameObj) => {
+    if (!nativeNameObj) return null;
+
+    const firstKey = Object.keys(nativeNameObj)[0];
+    return nativeNameObj[firstKey]?.common || null;
+};
+
+const extractCurrencies = (currenciesObj) => {
+    if (!currenciesObj) return [];
+
+    return Object.values(currenciesObj)
+        .map(currency => currency.name)
+        .filter(Boolean);
+};
+
+const isValidCountryData = (data) => {
+    return data && Array.isArray(data) && data.length > 0 && data[0];
+};
+
 export const getCountry = async (country) => {
-    const data = await fetchCountry(country)
-    const obj = {
-        name: data[0]?.name?.common,
-        nativeName: data[0]?.name?.nativeName[Object.keys(data[0]?.name?.nativeName)[Object.keys(data[0]?.name?.nativeName).length - 1]]?.common,
-        population: data[0]?.population,
-        region: data[0]?.region,
-        subregion: data[0]?.subregion,
-        capital: data[0]?.capital,
-        tld: data[0]?.tld,
-        currencies: data[0]?.currencies[Object.keys(data[0]?.currencies)[0]]?.name,
-        languages: data[0]?.languages,
+    const data = await fetchCountry(country);
+
+    if (!isValidCountryData(data)) {
+        throw new Error(`Country "${country}" not found or invalid data received`);
     }
 
-    if (data[0]?.borders) {
-        const countryData = await getCountries(data[0]?.borders)
-        obj.borders = countryData.map(country => country?.name?.common)
+    const countryData = data[0];
+
+    const cleanedCountry = {
+        name: countryData.name?.common || null,
+        nativeName: extractNativeName(countryData.name?.nativeName),
+        population: countryData.population || 0,
+        region: countryData.region || null,
+        subregion: countryData.subregion || null,
+        capital: countryData.capital || [],
+        tld: countryData.tld || [],
+        currencies: extractCurrencies(countryData.currencies),
+        languages: countryData.languages || {},
+    };
+
+    if (countryData.borders && countryData.borders.length > 0) {
+        try {
+            const borderCountries = await fetchCountries(countryData.borders);
+            if (isValidCountryData(borderCountries)) {
+                cleanedCountry.borders = borderCountries
+                    .map(border => border?.name?.common)
+                    .filter(Boolean);
+            } else {
+                cleanedCountry.borders = [];
+            }
+        } catch (borderError) {
+            cleanedCountry.borders = [];
+        }
+    } else {
+        cleanedCountry.borders = [];
     }
 
-    return  obj
-}
-
-/*
-* This functions return a clean version of the country object
-*/
-export const getCountries = async (countries) => {
-    const data = await fetchCountries(countries)
-    return data
-}
+    return cleanedCountry;
+};

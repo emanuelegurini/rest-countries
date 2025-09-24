@@ -1,6 +1,6 @@
 import { getCountry } from "./models/country.js";
 import {useEffect, useState} from "react";
-import {Link, NavLink, useParams} from "react-router";
+import {NavLink, useParams} from "react-router";
 
 export const CountryScreen = () => {
 
@@ -24,7 +24,7 @@ export const CountryScreen = () => {
 
    useEffect(() => {
        loadCountry(country_name);
-   }, [])
+   }, [country_name]);
 
     // CONDITIONS
     if (error) return <h1>Something went wrong!</h1>

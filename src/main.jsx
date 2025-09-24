@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { BrowserRouter } from "react-router";
 import {
     createBrowserRouter,
     RouterProvider,
@@ -56,9 +55,4 @@ const router = createBrowserRouter([
 
 
 
-createRoot(document.getElementById('root')).render(
-
-    <RouterProvider router={router}>
-            <BrowserRouter />
-    </RouterProvider>
-)
+createRoot(document.getElementById('root')).render(<RouterProvider router={router} />)
