@@ -6,7 +6,7 @@ export const CountryCard = ({ country }) => {
 
     return (
         <Link to={'/countries/' + name.toLowerCase()}>
-            <div className="country-card bg-white rounded-sm shadow-md overflow-hidden h-full">
+            <div className="country-card bg-white dark:bg-amber-200 rounded-sm shadow-md overflow-hidden h-full">
                 <div className="w-full h-40">
                     <img
                         className="country-card__img w-full h-full object-cover"
